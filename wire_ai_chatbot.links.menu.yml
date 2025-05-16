@@ -1,0 +1,6 @@
+wire_ai_chatbot.settings:
+  title: 'Wire AI Chatbot'
+  description: 'Configure the Wire AI Chatbot settings.'
+  parent: system.admin_config_user_interface
+  route_name: wire_ai_chatbot.settings
+  weight: 100

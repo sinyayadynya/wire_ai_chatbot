@@ -1,0 +1,13 @@
+chatbot:
+  css:
+    theme:
+      css/wire_ai_chatbot.css: {}
+  js:
+    js/marked.min.js: {}
+    js/wire_ai_chatbot.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+    - wire/wire
+    - ai_chatbot/chat-print

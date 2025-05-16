@@ -1,0 +1,65 @@
+<div>
+  <div class="wire-ai-chatbot {{ expanded ? 'expanded' : 'collapsed' }} {{ isLoading ? 'is-loading' : '' }}">
+    
+    {# Chatbot Header (Only shown when expanded) #}
+    {% if expanded %}
+      <div class="wire-ai-chatbot-header">
+        <h3>{{ botName }}</h3>
+        <button class="wire-ai-chatbot-toggle" wire:click="toggleExpanded">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    {% endif %}
+    
+    {# Messages Container (Only shown when expanded) #}
+    {% if expanded %}
+      <div class="wire-ai-chatbot-messages">
+        {% for message in messages %}
+          <div class="wire-ai-chatbot-message {{ message.role }}">
+            <div class="wire-ai-chatbot-avatar" style="background-image: url({{ message.role == 'user' ? userImage : botImage }})"></div>
+            <div class="wire-ai-chatbot-bubble markdown-content">
+              {{ message.content|raw }}
+            </div>
+          </div>
+        {% endfor %}
+        
+        {# Loading indicator - moved out of message flow #}
+      </div>
+    {% endif %}
+    
+    {# Input Area (Always shown, but styling changes between states) #}
+    <div class="wire-ai-chatbot-input">
+      
+      <textarea 
+        wire:model="message" 
+        wire:keydown.enter.prevent="sendMessage"
+        wire:keydown.shift.enter="$event.stopPropagation()"
+        placeholder="Ask me anything..."
+        rows="1"></textarea>
+      <button class="wire-ai-chatbot-send" wire:click="sendMessage">
+        {% if isLoading %}
+          <div class="wire-ai-chatbot-spinner"></div>
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        {% endif %}
+      </button>
+    </div>
+    
+    {# Click handler for collapsed state to expand - REMOVED to prevent expanding on click #}
+    
+    {# JavaScript to handle the global toggle event #}
+    <script>
+      document.addEventListener('wireAiChatbotToggle', function() {
+        // Wire Drupal uses a different event dispatching mechanism
+        // This event will be caught by our JS code in wire_ai_chatbot.js
+        Drupal.behaviors.wireAiChatbot.toggleChatbot();
+      });
+    </script>
+  </div>
+</div>

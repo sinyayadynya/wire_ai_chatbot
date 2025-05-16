@@ -1,0 +1,9 @@
+name: 'Wire AI Chatbot'
+type: module
+description: 'Provides a centered, full-screen AI chatbot experience using the Drupal Wire framework.'
+package: 'Property Pilot'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:wire
+  - drupal:ai_assistant_api
+  - drupal:ai_chatbot

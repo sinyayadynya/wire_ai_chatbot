@@ -1,0 +1,73 @@
+<?php declare(strict_types = 1);
+
+/**
+ * @file
+ * Primary module file for the Wire AI Chatbot module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function wire_ai_chatbot_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.wire_ai_chatbot':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides a centered, full-screen AI chatbot experience using the Drupal Wire framework.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function wire_ai_chatbot_theme($existing, $type, $theme, $path) {
+  return [
+    'wire_ai_chatbot' => [
+      'variables' => [
+        'wire_ai_chatbot' => [],
+      ],
+      'template' => 'wire_ai_chatbot',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function wire_ai_chatbot_page_attachments(array &$attachments) {
+  // Get global chatbot settings.
+  $config = \Drupal::config('wire_ai_chatbot.settings');
+  if ($config->get('enable_global_chatbot')) {
+    // Attach the chatbot libraries.
+    $attachments['#attached']['library'][] = 'wire_ai_chatbot/chatbot';
+    
+    // Add settings to Drupal's JS settings.
+    $attachments['#attached']['drupalSettings']['wireAiChatbot'] = [
+      'botName' => $config->get('bot_name') ?: 'AI Assistant',
+      'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
+      'primaryColor' => $config->get('primary_color') ?: '#0073e6',
+      'buttonPosition' => $config->get('button_position') ?: 'bottom-right',
+    ];
+    
+    // Add the Wire component for the global chatbot.
+    $assistantId = $config->get('default_assistant');
+    if ($assistantId) {
+      // Create a render array using markup with the wire Twig function
+      $attachments['wire_ai_chatbot_global'] = [
+        '#markup' => twig_render_template(
+          'wire_ai_chatbot.html.twig',
+          [
+            'wire_ai_chatbot' => [
+              'assistantId' => $assistantId,
+              'botName' => $config->get('bot_name') ?: 'AI Assistant',
+              'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
+            ],
+          ]
+        ),
+      ];
+    }
+  }
+}

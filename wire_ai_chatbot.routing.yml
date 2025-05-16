@@ -1,0 +1,7 @@
+wire_ai_chatbot.settings:
+  path: '/admin/config/user-interface/wire-ai-chatbot'
+  defaults:
+    _form: '\Drupal\wire_ai_chatbot\Form\SettingsForm'
+    _title: 'Wire AI Chatbot Settings'
+  requirements:
+    _permission: 'administer site configuration'

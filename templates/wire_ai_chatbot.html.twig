@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Template for Wire AI Chatbot.
+ *
+ * Available variables:
+ * - wire_ai_chatbot: An array containing:
+ *   - assistantId: The ID of the AI assistant.
+ *   - botName: The name of the bot.
+ *   - botImage: The image URL for the bot.
+ */
+#}
+{# Use the wire() Twig function to render the component with context #}
+<div>
+  {{ wire('wire_ai_chatbot', wire_ai_chatbot) }}
+</div>
