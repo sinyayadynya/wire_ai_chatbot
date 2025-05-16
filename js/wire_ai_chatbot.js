@@ -14,6 +14,12 @@
 
     attach: function (context, settings) {
       once('wire-ai-chatbot', 'body', context).forEach(function () {
+        // Apply theme color from settings
+        if (drupalSettings.wireAiChatbot && drupalSettings.wireAiChatbot.primaryColor) {
+          // Update CSS variable for the primary color
+          document.documentElement.style.setProperty('--chatbot-primary', drupalSettings.wireAiChatbot.primaryColor);
+        }
+        
         // Only add the global button if enabled in settings
         if (drupalSettings.wireAiChatbot && drupalSettings.wireAiChatbot.buttonPosition) {
           this.addGlobalButton(drupalSettings.wireAiChatbot);

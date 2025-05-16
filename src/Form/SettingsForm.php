@@ -164,6 +164,14 @@ class SettingsForm extends FormBase {
       '#description' => $this->t('Set the primary color for the chatbot button and accents.'),
       '#default_value' => $config->get('primary_color') ?: '#0073e6',
     ];
+    
+    $form['appearance']['input_placeholder'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Input Placeholder Text'),
+      '#description' => $this->t('The placeholder text shown in the chatbot input field.'),
+      '#default_value' => $config->get('input_placeholder') ?: 'Ask me anything...',
+      '#maxlength' => 100,
+    ];
 
     $form['actions'] = [
       '#type' => 'actions',
@@ -200,6 +208,7 @@ class SettingsForm extends FormBase {
       ->set('bot_image', $form_state->getValue('bot_image'))
       ->set('button_position', $form_state->getValue('button_position'))
       ->set('primary_color', $form_state->getValue('primary_color'))
+      ->set('input_placeholder', $form_state->getValue('input_placeholder'))
       ->save();
 
     $this->messenger()->addStatus($this->t('The configuration options have been saved.'));

@@ -37,7 +37,7 @@
         wire:model="message" 
         wire:keydown.enter.prevent="sendMessage"
         wire:keydown.shift.enter="$event.stopPropagation()"
-        placeholder="Ask me anything..."
+        placeholder="{{ inputPlaceholder }}"
         rows="1"></textarea>
       <button class="wire-ai-chatbot-send" wire:click="sendMessage">
         {% if isLoading %}

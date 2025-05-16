@@ -84,6 +84,13 @@ class WireAiChatbot extends WireComponentBase {
    * @var string
    */
   public string $userImage = '/core/misc/favicon.ico';
+  
+  /**
+   * The placeholder text for the input field.
+   *
+   * @var string
+   */
+  public string $inputPlaceholder = 'Ask me anything...';
 
   /**
    * The thread ID for message history.
@@ -174,6 +181,13 @@ class WireAiChatbot extends WireComponentBase {
     }
     else {
       $this->botImage = $config->get('bot_image') ?: '/core/misc/druplicon.png';
+    }
+    
+    if (isset($this->attributes['inputPlaceholder']) && !empty($this->attributes['inputPlaceholder'])) {
+      $this->inputPlaceholder = $this->attributes['inputPlaceholder'];
+    }
+    else {
+      $this->inputPlaceholder = $config->get('input_placeholder') ?: 'Ask me anything...';
     }
     
     // User info.
