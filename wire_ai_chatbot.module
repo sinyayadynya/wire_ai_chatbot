@@ -27,9 +27,10 @@ function wire_ai_chatbot_theme($existing, $type, $theme, $path) {
   return [
     'wire_ai_chatbot' => [
       'variables' => [
-        'wire_ai_chatbot' => [],
+        'wire_ai_chatbot' => NULL,
       ],
       'template' => 'wire_ai_chatbot',
+      'path' => $path . '/templates/wire',
     ],
   ];
 }
@@ -55,18 +56,14 @@ function wire_ai_chatbot_page_attachments(array &$attachments) {
     // Add the Wire component for the global chatbot.
     $assistantId = $config->get('default_assistant');
     if ($assistantId) {
-      // Create a render array using markup with the wire Twig function
+      // Create a render array using the theme system instead of direct template rendering
       $attachments['wire_ai_chatbot_global'] = [
-        '#markup' => twig_render_template(
-          'wire_ai_chatbot.html.twig',
-          [
-            'wire_ai_chatbot' => [
-              'assistantId' => $assistantId,
-              'botName' => $config->get('bot_name') ?: 'AI Assistant',
-              'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
-            ],
-          ]
-        ),
+        '#theme' => 'wire_ai_chatbot',
+        '#wire_ai_chatbot' => [
+          'assistantId' => $assistantId,
+          'botName' => $config->get('bot_name') ?: 'AI Assistant',
+          'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
+        ],
       ];
     }
   }

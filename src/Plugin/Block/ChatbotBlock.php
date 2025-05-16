@@ -4,6 +4,7 @@ namespace Drupal\wire_ai_chatbot\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -27,6 +28,13 @@ class ChatbotBlock extends BlockBase implements ContainerFactoryPluginInterface 
   protected $entityTypeManager;
 
   /**
+   * The extension path resolver.
+   *
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
    * Constructs a new ChatbotBlock object.
    *
    * @param array $configuration
@@ -38,9 +46,16 @@ class ChatbotBlock extends BlockBase implements ContainerFactoryPluginInterface 
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    array $configuration, 
+    $plugin_id, 
+    $plugin_definition, 
+    EntityTypeManagerInterface $entity_type_manager,
+    ExtensionPathResolver $extension_path_resolver
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
+    $this->extensionPathResolver = $extension_path_resolver;
   }
 
   /**
@@ -51,7 +66,8 @@ class ChatbotBlock extends BlockBase implements ContainerFactoryPluginInterface 
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('extension.path.resolver')
     );
   }
 
@@ -155,19 +171,14 @@ class ChatbotBlock extends BlockBase implements ContainerFactoryPluginInterface 
     // Include the chatbot library.
     $build['#attached']['library'][] = 'wire_ai_chatbot/chatbot';
     
-    // Render the Wire component.
-    // Use the wire Twig function rendered as a markup string
+    // Render the Wire component using theme system instead of direct template rendering
     $build['content'] = [
-      '#markup' => twig_render_template(
-        'wire_ai_chatbot.html.twig',
-        [
-          'wire_ai_chatbot' => [
-            'assistantId' => $this->configuration['assistant_id'],
-            'botName' => $this->configuration['bot_name'], 
-            'botImage' => $this->configuration['bot_image'],
-          ],
-        ]
-      ),
+      '#theme' => 'wire_ai_chatbot',
+      '#wire_ai_chatbot' => [
+        'assistantId' => $this->configuration['assistant_id'],
+        'botName' => $this->configuration['bot_name'], 
+        'botImage' => $this->configuration['bot_image'],
+      ],
     ];
 
     return $build;
