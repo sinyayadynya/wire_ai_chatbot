@@ -225,6 +225,18 @@
   opacity: 0.6;
 }
 
+/* Link styling */
+.chatbot-link {
+  color: var(--chatbot-primary, #0073e6);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.chatbot-link:hover {
+  color: #005bb8;
+}
+
 .wire-ai-chatbot.is-loading .wire-ai-chatbot-send {
   cursor: not-allowed;
   opacity: 0.6;

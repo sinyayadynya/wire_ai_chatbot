@@ -80,11 +80,11 @@
         silent: false     // Show warnings in console for debugging
       });
       
-      // Custom renderer to open links in new tab
+      // Custom renderer for links (now opening in same tab)
       const renderer = new marked.Renderer();
       renderer.link = function(href, title, text) {
         console.log('Rendering link:', href, title, text);
-        return '<a target="_blank" rel="noopener noreferrer" href="' + href + '">' + text + '</a>';
+        return '<a class="chatbot-link" href="' + href + '">' + text + '</a>';
       };
       marked.setOptions({ renderer });
 
@@ -94,7 +94,7 @@
         const linkPattern = /\[(.*?)\]\((.*?)\)/g;
         return text.replace(linkPattern, function(match, text, url) {
           console.log('Regex found link:', text, url);
-          return '<a target="_blank" rel="noopener noreferrer" href="' + url + '">' + text + '</a>';
+          return '<a class="chatbot-link" href="' + url + '">' + text + '</a>';
         });
       }
 
