@@ -355,6 +355,31 @@ class WireAiChatbot extends WireComponentBase {
   }
 
   /**
+   * Handle shift+enter keypress to allow line breaks.
+   *
+   * @param array $event
+   *   The event object.
+   */
+  public function handleShiftEnter(array $event = []): void {
+    // This is a no-op method. When shift+enter is pressed,
+    // we want the default behavior (inserting a new line).
+  }
+  
+  /**
+   * Handle the event.stopPropagation method call.
+   *
+   * This is needed for wire:keydown.shift.enter="$event.stopPropagation()"
+   * Wire tries to call this method on the component with the event as argument.
+   *
+   * @param array $event
+   *   The event object.
+   */
+  public function stopPropagation(array $event = []): void {
+    // This is a no-op method, it just needs to exist.
+    // The actual event stopping is handled by the Wire framework.
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function render(): ?View {

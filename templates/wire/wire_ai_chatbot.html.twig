@@ -36,16 +36,15 @@
       <textarea 
         wire:model="message" 
         wire:keydown.enter.prevent="sendMessage"
-        wire:keydown.shift.enter="$event.stopPropagation()"
+        wire:keydown.shift.enter="handleShiftEnter"
         placeholder="{{ inputPlaceholder }}"
         rows="1"></textarea>
       <button class="wire-ai-chatbot-send" wire:click="sendMessage">
         {% if isLoading %}
           <div class="wire-ai-chatbot-spinner"></div>
         {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20">
+            <path fill="currentColor" fill-rule="nonzero" d="M18 5a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v13.927a1 1 0 0 0 1.623.782l3.684-2.93a4 4 0 0 1 2.49-.87H13a5 5 0 0 0 5-5V5Z"/>
           </svg>
         {% endif %}
       </button>
