@@ -205,14 +205,37 @@
 
 /* Special styling for button spinner */
 .wire-ai-chatbot-send .wire-ai-chatbot-spinner {
-  width: 18px;
-  height: 18px;
+  width: 18px; /* Or your desired size */
+  height: 18px; /* Or your desired size */
+  border: 2px solid rgba(255, 255, 255, 0.3); /* Light border for the track */
+  border-top-color: white; /* Active part of the spinner - ensure this contrasts with button bg */
+  border-right-color: white; /* Active part of the spinner */
+  border-radius: 50%;
+  animation: spinner 0.8s linear infinite;
 }
 
 @keyframes spinner {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Ensure the button maintains its size and doesn't jump when content changes */
+.wire-ai-chatbot-send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Your existing width, height, padding etc. */
+  /* For example: */
+  width: 38px;
+  height: 38px;
+}
+
+/* Styles for the button when the main component is loading (optional, but you have it) */
+.wire-ai-chatbot.is-loading .wire-ai-chatbot-send {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none; /* This will be handled by wire:loading.attr="disabled" more directly */
 }
 
 .wire-ai-chatbot-thinking span {

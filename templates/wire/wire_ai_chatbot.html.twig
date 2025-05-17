@@ -43,21 +43,33 @@
     
     {# Input Area (Always shown, but styling changes between states) #}
     <div class="wire-ai-chatbot-input">
-      
-      <textarea 
-        wire:model="message" 
-        wire:keydown.enter.prevent="sendMessage"
-        wire:keydown.shift.enter="handleShiftEnter"
-        placeholder="{{ inputPlaceholder }}"
-        rows="1"></textarea>
-      <button class="wire-ai-chatbot-send" wire:click="sendMessage">
-        {% if isLoading %}
-          <div class="wire-ai-chatbot-spinner"></div>
-        {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20">
-            <path fill="currentColor" fill-rule="nonzero" d="M18 5a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v13.927a1 1 0 0 0 1.623.782l3.684-2.93a4 4 0 0 1 2.49-.87H13a5 5 0 0 0 5-5V5Z"/>
-          </svg>
-        {% endif %}
+      <textarea
+          wire:model.defer="message"
+          placeholder="{{ inputPlaceholder }}"
+          aria-label="{{ 'Type your message'|t }}"
+          wire:keydown.enter.prevent="sendMessage"
+          wire:keydown.shift.enter.prevent="handleShiftEnter" {# Allows shift+enter for new line #}
+      ></textarea>
+      <button
+          type="button"
+          class="wire-ai-chatbot-send"
+          wire:click="sendMessage"
+          {# Disable the button during the sendMessage action or when message is being processed by isLoading #}
+          wire:loading.attr="disabled"
+          wire:target="sendMessage, message"
+          aria-label="{{ 'Send message'|t }}"
+      >
+          {# This span (containing your default send icon) will be REMOVED during loading #}
+          <span wire:loading.remove wire:target="sendMessage, message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20">
+              <path fill="currentColor" fill-rule="nonzero" d="M18 5a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v13.927a1 1 0 0 0 1.623.782l3.684-2.93a4 4 0 0 1 2.49-.87H13a5 5 0 0 0 5-5V5Z"/>
+            </svg>
+          </span>
+
+          {# This span (containing the spinner) will be SHOWN during loading #}
+          <span wire:loading wire:target="sendMessage, message">
+              <div class="wire-ai-chatbot-spinner"></div>
+          </span>
       </button>
     </div>
     
