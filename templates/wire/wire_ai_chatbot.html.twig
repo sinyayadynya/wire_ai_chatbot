@@ -1,3 +1,14 @@
+{# Initialize the Wire component if variables are present #}
+{% if wire_ai_chatbot is not empty %}
+  {# The settings are passed as data attributes for the Wire component to read #}
+  <div 
+    data-assistant-id="{{ wire_ai_chatbot.assistantId|default('') }}"
+    data-bot-name="{{ wire_ai_chatbot.botName|default('AI Assistant') }}"
+    data-bot-image="{{ wire_ai_chatbot.botImage|default('/core/misc/druplicon.png') }}"
+    class="js-wire-ai-chatbot-container">
+  </div>
+{% endif %}
+
 <div>
   <div class="wire-ai-chatbot {{ expanded ? 'expanded' : 'collapsed' }} {{ isLoading ? 'is-loading' : '' }}">
     
