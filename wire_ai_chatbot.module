@@ -64,6 +64,7 @@ function wire_ai_chatbot_page_attachments(array &$attachments) {
           'botName' => $config->get('bot_name') ?: 'AI Assistant',
           'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
         ],
+        // Wire components are initialized by the theme system automatically
       ];
     }
   }

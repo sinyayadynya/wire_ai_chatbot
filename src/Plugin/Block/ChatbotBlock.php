@@ -179,6 +179,7 @@ class ChatbotBlock extends BlockBase implements ContainerFactoryPluginInterface 
         'botName' => $this->configuration['bot_name'], 
         'botImage' => $this->configuration['bot_image'],
       ],
+      // Wire components are initialized by the theme system automatically
     ];
 
     return $build;

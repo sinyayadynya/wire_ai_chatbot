@@ -13,6 +13,25 @@
     chatbotComponents: [],
 
     attach: function (context, settings) {
+      // Initialize Wire components from containers with data attributes
+      once('wire-ai-chatbot-container', '.js-wire-ai-chatbot-container', context).forEach(function(container) {
+        // Extract data attributes to initialize the Wire component
+        const assistantId = container.getAttribute('data-assistant-id');
+        const botName = container.getAttribute('data-bot-name');
+        const botImage = container.getAttribute('data-bot-image');
+        
+        if (assistantId) {
+          // Initialize Wire component through Drupal.wire
+          if (Drupal.wire && typeof Drupal.wire.mount === 'function') {
+            Drupal.wire.mount('wire_ai_chatbot', container, {
+              assistantId: assistantId,
+              botName: botName || 'AI Assistant',
+              botImage: botImage || '/core/misc/druplicon.png'
+            });
+          }
+        }
+      });
+      
       once('wire-ai-chatbot', 'body', context).forEach(function () {
         // Apply theme color from settings
         if (drupalSettings.wireAiChatbot && drupalSettings.wireAiChatbot.primaryColor) {
