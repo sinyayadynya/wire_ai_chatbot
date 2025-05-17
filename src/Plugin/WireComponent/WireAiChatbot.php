@@ -235,7 +235,10 @@ class WireAiChatbot extends WireComponentBase {
         }
         else {
           // Add welcome message if no history exists.
-          $welcomeMessage = $assistant->get('welcome_message') ?: 'Hello! How can I help you today?';
+          // First try to get from module settings, then fallback to assistant entity, then default
+          $siteConfig = \Drupal::config('wire_ai_chatbot.settings');
+          $welcomeMessage = $siteConfig->get('welcome_message') ?: 
+            ($assistant->get('welcome_message') ?: 'Hello! How can I help you today?');
           $this->messages[] = [
             'role' => 'assistant',
             'content' => $welcomeMessage,

@@ -172,6 +172,15 @@ class SettingsForm extends FormBase {
       '#default_value' => $config->get('input_placeholder') ?: 'Ask me anything...',
       '#maxlength' => 100,
     ];
+    
+    $form['appearance']['welcome_message'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Welcome Message'),
+      '#description' => $this->t('The default welcome message shown when a user first opens the chatbot.'),
+      '#default_value' => $config->get('welcome_message') ?: 'Hello! How can I help you today?',
+      '#rows' => 3,
+      '#maxlength' => 500,
+    ];
 
     $form['actions'] = [
       '#type' => 'actions',
@@ -209,6 +218,7 @@ class SettingsForm extends FormBase {
       ->set('button_position', $form_state->getValue('button_position'))
       ->set('primary_color', $form_state->getValue('primary_color'))
       ->set('input_placeholder', $form_state->getValue('input_placeholder'))
+      ->set('welcome_message', $form_state->getValue('welcome_message'))
       ->save();
 
     $this->messenger()->addStatus($this->t('The configuration options have been saved.'));

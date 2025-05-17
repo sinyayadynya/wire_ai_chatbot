@@ -21,6 +21,18 @@ function wire_ai_chatbot_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
+ * Implements hook_system_info_alter().
+ *
+ * Adds settings link to the module page.
+ */
+function wire_ai_chatbot_system_info_alter(array &$info, \Drupal\Core\Extension\Extension $file, $type) {
+  // Only modify our own module.
+  if ($type == 'module' && $file->getName() == 'wire_ai_chatbot') {
+    $info['configure'] = 'wire_ai_chatbot.settings';
+  }
+}
+
+/**
  * Implements hook_theme().
  */
 function wire_ai_chatbot_theme($existing, $type, $theme, $path) {
