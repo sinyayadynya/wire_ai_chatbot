@@ -4,7 +4,7 @@
   <div 
     data-assistant-id="{{ wire_ai_chatbot.assistantId|default('') }}"
     data-bot-name="{{ wire_ai_chatbot.botName|default('AI Assistant') }}"
-    data-bot-image="{{ wire_ai_chatbot.botImage|default('/core/misc/druplicon.png') }}"
+    data-bot-image="{{ wire_ai_chatbot.botImage|default('/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg') }}"
     class="js-wire-ai-chatbot-container">
   </div>
 {% endif %}
@@ -30,7 +30,7 @@
       <div class="wire-ai-chatbot-messages">
         {% for message in messages %}
           <div class="wire-ai-chatbot-message {{ message.role }}">
-            <div class="wire-ai-chatbot-avatar" style="background-image: url({{ message.role == 'user' ? userImage : botImage }})"></div>
+            <div class="wire-ai-chatbot-avatar" style="background-image: url({{ message.role == 'user' ? userImage : '/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg' }})"></div>
             <div class="wire-ai-chatbot-bubble markdown-content">
               {{ message.content|raw }}
             </div>

@@ -47,7 +47,7 @@ function wire_ai_chatbot_page_attachments(array &$attachments) {
     // Add settings to Drupal's JS settings.
     $attachments['#attached']['drupalSettings']['wireAiChatbot'] = [
       'botName' => $config->get('bot_name') ?: 'AI Assistant',
-      'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
+      'botImage' => $config->get('bot_image') ?: '/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg',
       'primaryColor' => $config->get('primary_color') ?: '#0073e6',
       'buttonPosition' => $config->get('button_position') ?: 'bottom-right',
     ];
@@ -62,7 +62,7 @@ function wire_ai_chatbot_page_attachments(array &$attachments) {
         '#context' => [
           'assistantId' => $assistantId,
           'botName' => $config->get('bot_name') ?: 'AI Assistant',
-          'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
+          'botImage' => $config->get('bot_image') ?: '/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg',
         ],
       ];
     }

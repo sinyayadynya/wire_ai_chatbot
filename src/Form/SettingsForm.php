@@ -139,7 +139,7 @@ class SettingsForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Bot Image'),
       '#description' => $this->t('Path to the bot avatar image.'),
-      '#default_value' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
+      '#default_value' => $config->get('bot_image') ?: '/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg',
     ];
 
     $form['appearance']['button_position'] = [

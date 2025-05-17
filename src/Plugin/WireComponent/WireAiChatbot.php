@@ -69,7 +69,7 @@ class WireAiChatbot extends WireComponentBase {
    *
    * @var string
    */
-  public string $botImage = '/core/misc/druplicon.png';
+  public string $botImage = '/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg';
 
   /**
    * The user name.
@@ -180,7 +180,7 @@ class WireAiChatbot extends WireComponentBase {
       $this->botImage = $this->attributes['botImage'];
     }
     else {
-      $this->botImage = $config->get('bot_image') ?: '/core/misc/druplicon.png';
+      $this->botImage = $config->get('bot_image') ?: '/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg';
     }
     
     if (isset($this->attributes['inputPlaceholder']) && !empty($this->attributes['inputPlaceholder'])) {
@@ -261,20 +261,19 @@ class WireAiChatbot extends WireComponentBase {
    * Send a message to the AI assistant.
    */
   public function sendMessage(): void {
-    // Don't send empty messages.
-    if (empty(trim($this->message))) {
+    // Skip empty messages.
+    if (empty($this->message)) {
       return;
     }
-    
-    // Add user message to the chat.
-    $userMessage = [
+
+    // Add user message to the conversation.
+    $this->messages[] = [
       'role' => 'user',
-      'content' => $this->message,
+      'content' => nl2br(htmlspecialchars($this->message)),
       'timestamp' => date('H:i'),
     ];
-    $this->messages[] = $userMessage;
     
-    // Clear the input field.
+    // Save the message before clearing the input field.
     $messageText = $this->message;
     $this->message = '';
     

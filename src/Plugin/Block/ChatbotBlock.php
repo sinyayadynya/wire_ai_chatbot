@@ -62,7 +62,7 @@ class ChatbotBlock extends BlockBase implements ContainerFactoryPluginInterface 
     return [
       'assistant_id' => '',
       'bot_name' => 'AI Assistant',
-      'bot_image' => '/core/misc/druplicon.png',
+      'bot_image' => '/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg',
       'primary_color' => '#0073e6',
     ];
   }

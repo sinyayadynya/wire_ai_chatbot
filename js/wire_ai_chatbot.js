@@ -26,7 +26,7 @@
             Drupal.wire.mount('wire_ai_chatbot', container, {
               assistantId: assistantId,
               botName: botName || 'AI Assistant',
-              botImage: botImage || '/core/misc/druplicon.png'
+              botImage: botImage || '/modules/custom/wire_ai_chatbot/images/chatbot_icon.svg'
             });
           }
         }
