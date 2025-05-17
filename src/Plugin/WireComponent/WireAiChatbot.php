@@ -83,7 +83,7 @@ class WireAiChatbot extends WireComponentBase {
    *
    * @var string
    */
-  public string $userImage = '/core/misc/favicon.ico';
+  public string $userImage = '/modules/custom/wire_ai_chatbot/images/user_icon.svg';
   
   /**
    * The placeholder text for the input field.
@@ -194,7 +194,7 @@ class WireAiChatbot extends WireComponentBase {
     $this->userName = $this->currentUser->isAuthenticated() ? $this->currentUser->getDisplayName() : 'You';
     
     // Set user image (you could enhance this to get the user picture).
-    $this->userImage = '/core/misc/favicon.ico';
+    $this->userImage = '/modules/custom/wire_ai_chatbot/images/user_icon.svg';
     
     // If an assistant ID is set, load the first message.
     if ($this->assistantId) {
