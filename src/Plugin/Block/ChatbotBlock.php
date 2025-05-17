@@ -155,19 +155,16 @@ class ChatbotBlock extends BlockBase implements ContainerFactoryPluginInterface 
     // Include the chatbot library.
     $build['#attached']['library'][] = 'wire_ai_chatbot/chatbot';
     
-    // Render the Wire component.
-    // Use the wire Twig function rendered as a markup string
+    // Render the Wire component using the Wire render element
+    // This avoids the twig_render_template() issues with debug mode
     $build['content'] = [
-      '#markup' => twig_render_template(
-        'wire_ai_chatbot.html.twig',
-        [
-          'wire_ai_chatbot' => [
-            'assistantId' => $this->configuration['assistant_id'],
-            'botName' => $this->configuration['bot_name'], 
-            'botImage' => $this->configuration['bot_image'],
-          ],
-        ]
-      ),
+      '#type' => 'wire',
+      '#id' => 'wire_ai_chatbot',
+      '#context' => [
+        'assistantId' => $this->configuration['assistant_id'],
+        'botName' => $this->configuration['bot_name'], 
+        'botImage' => $this->configuration['bot_image'],
+      ],
     ];
 
     return $build;

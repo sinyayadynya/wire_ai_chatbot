@@ -55,18 +55,15 @@ function wire_ai_chatbot_page_attachments(array &$attachments) {
     // Add the Wire component for the global chatbot.
     $assistantId = $config->get('default_assistant');
     if ($assistantId) {
-      // Create a render array using markup with the wire Twig function
+      // Use #type => 'wire' instead of direct template rendering which avoids twig debug issues
       $attachments['wire_ai_chatbot_global'] = [
-        '#markup' => twig_render_template(
-          'wire_ai_chatbot.html.twig',
-          [
-            'wire_ai_chatbot' => [
-              'assistantId' => $assistantId,
-              'botName' => $config->get('bot_name') ?: 'AI Assistant',
-              'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
-            ],
-          ]
-        ),
+        '#type' => 'wire',
+        '#id' => 'wire_ai_chatbot',
+        '#context' => [
+          'assistantId' => $assistantId,
+          'botName' => $config->get('bot_name') ?: 'AI Assistant',
+          'botImage' => $config->get('bot_image') ?: '/core/misc/druplicon.png',
+        ],
       ];
     }
   }
